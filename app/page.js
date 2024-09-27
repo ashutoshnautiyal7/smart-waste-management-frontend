@@ -1,101 +1,187 @@
-import Image from "next/image";
+"use client"
+
+import { useState } from 'react';
+import axios from 'axios';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [prompt, setPrompt] = useState('');
+  const [response, setResponse] = useState('');
+  const [loading, setLoading] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  // Handle image selection and generate preview
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedImage(file);
+
+    // Generate image preview
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);  // Set preview as base64
+      };
+      reader.readAsDataURL(file);  // Read the file as Data URL
+    } else {
+      setPreview(null);  // Reset preview if no image is selected
+    }
+  };
+  // Handle form submission for custom prompt
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!selectedImage) {
+      alert('Please select an image!');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('image', selectedImage);
+    formData.append('prompt', prompt);
+
+    setLoading(true);
+    try {
+      const res = await axios.post('http://localhost:3000/describe-image', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      setResponse(res.data.description);
+    } catch (error) {
+      console.error('Error uploading the image:', error);
+      setResponse('Error processing the image.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmitReuse = async (e) => {
+    e.preventDefault();
+    if (!selectedImage) {
+      alert('Please select an image!');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('image', selectedImage);
+
+    setLoading(true);
+    try {
+      const res = await axios.post('http://localhost:3000/reuse', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      setResponse(res.data.description);
+    } catch (error) {
+      console.error('Error uploading the image:', error);
+      setResponse('Error processing the image.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmitRecycle = async (e) => {
+    e.preventDefault();
+    if (!selectedImage) {
+      alert('Please select an image!');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('image', selectedImage);
+
+    setLoading(true);
+    try {
+      const res = await axios.post('http://localhost:3000/recycle', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      setResponse(res.data.description);
+    } catch (error) {
+      console.error('Error uploading the image:', error);
+      setResponse('Error processing the image.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen font-sans">
+      <h1 className="text-3xl font-bold mb-8 text-gray-800">Smart Waste Management and Social Welfare</h1> 
+
+      <form onSubmit={handleSubmit} className="w-full max-w-lg bg-white p-6 rounded-lg shadow-md">
+        <div className="mb-6">
+          <label className="block text-gray-700 font-semibold mb-2">Select an Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+
+        {preview && (
+          <div className="mb-6">
+            <img
+              src={preview}
+              alt="Preview"
+              className="w-64 h-auto rounded-md shadow-md mx-auto border border-gray-200"
+            />
+          </div>
+        )}
+
+        <div className="mb-6">
+          <label className="block text-gray-700 font-semibold mb-2">Custom Prompt</label>
+          <textarea
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            placeholder="Enter a custom prompt for the image description"
+            className="w-full h-24 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        </div>
+
+        <div className="flex space-x-4">
+          <button
+            type="submit"
+            className={`w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ${
+              loading ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+            disabled={loading}
+          >
+            {loading ? 'Processing...' : 'Custom Prompt'}
+          </button>
+        </div>
+      </form>
+
+      <div className="mt-4 flex space-x-4">
+        <button
+          onClick={handleSubmitReuse}
+          className={`bg-green-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300 ${
+            loading ? 'opacity-50 cursor-not-allowed' : ''
+          }`}
+          disabled={loading}
         >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          {loading ? 'Processing...' : 'Reuse'}
+        </button>
+
+        <button
+          onClick={handleSubmitRecycle}
+          className={`bg-red-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 ${
+            loading ? 'opacity-50 cursor-not-allowed' : ''
+          }`}
+          disabled={loading}
         >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          {loading ? 'Processing...' : 'Recycle'}
+        </button>
+      </div>
+
+      {response && (
+        <div className="mt-8 p-6 bg-gray-100 rounded-md shadow-md w-full max-w-lg">
+          <h3 className="text-xl font-semibold text-gray-800">Response:</h3>
+          <p className="text-gray-600 mt-2">{response}</p>
+        </div>
+      )}
     </div>
   );
 }
