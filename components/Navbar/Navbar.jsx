@@ -23,14 +23,9 @@ const Navbar = () => {
   }, [pathname]);
 
   useEffect(() => {
-    const activeIndex = [
-      "",
-      "services",
-      "about",
-      "contact",
-      "universities",
-      "testimonial",
-    ].indexOf(activeLink.replace("/", ""));
+    const activeIndex = ["", "about", "market-place", "community"].indexOf(
+      activeLink.replace("/", "")
+    );
     if (linksRef.current[activeIndex]) {
       const link = linksRef.current[activeIndex];
       setIndicatorStyle({
@@ -42,11 +37,9 @@ const Navbar = () => {
 
   const linkNames = {
     "/": "Home",
-    "/services": "Services",
     "/about": "About Us",
-    "/contact": "Contact Us",
-    "/universities": "Universities",
-    "/testimonial": "Testimonials",
+    "/market-place": "Market Place",
+    "/community": "Community",
   };
 
   return (
@@ -55,7 +48,11 @@ const Navbar = () => {
       <div className="w-[85%] py-[1.4rem] flex justify-between mx-auto items-center relative">
         <div className="flex items-center justify-between w-full">
           <div>
-            <Link href={"/"} aria-label="Home" className="text-[#71c55d] text-xl font-bold">
+            <Link
+              href={"/"}
+              aria-label="Home"
+              className="text-[#71c55d] text-xl font-bold"
+            >
               logo
             </Link>
           </div>
