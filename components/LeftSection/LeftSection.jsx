@@ -267,7 +267,7 @@ const LeftSection = ({
         {posts.length > 0 ? (
           posts.map((post) => (
             <>
-              <Link href={`/community/${post.id}`}>
+              <Link href={`/market-place/${post.id}`}>
                 <div
                   key={post.id}
                   className="bg-[#20203A] p-4 rounded-md w-[300px] min-w-[300px] flex-shrink-0"
