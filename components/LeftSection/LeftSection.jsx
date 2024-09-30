@@ -18,7 +18,7 @@ const LeftSection = ({
   size,
   currentPage,
   setCurrentPage,
-  token
+  token,
 }) => {
   const [imageSrc, setImageSrc] = useState([]);
   const titleRef = useRef();
@@ -136,130 +136,125 @@ const LeftSection = ({
   };
 
   return (
-    <section className="">
+    <section className="bg-white p-2 lg:p-6 lg:rounded-md lg:shadow-md">
       <form
         onSubmit={handleSubmit}
-        className="bg-white text-black my-2 rounded-t-xl p-3 md:p-5 overflow-hidden"
+        className="bg-[#F4F4F4] text-black rounded-md p-3 lg:p-5 mb-6"
       >
-        <h2 className="font-bold ml-1 text-[18px]">Create Post</h2>
+        <h2 className="font-bold text-[#71c55d] text-xl mb-4">Create Post</h2>
 
-        <div className="flex items-center gap-2 my-2 bg-[#ECECEC] rounded-xl py-3 px-5">
+        <div className="my-3">
           <input
-            required
             ref={titleRef}
-            className="outline-none rounded-r-xl w-full bg-[#ECECEC] placeholder:text-black"
+            required
+            className="w-full p-3 border text-[14px] md:text-[16px] rounded-md focus:ring-2 focus:ring-[#71C55D] outline-none"
             placeholder="Title"
           />
         </div>
 
-        <div className="flex items-center gap-2 my-4 bg-[#ECECEC] rounded-xl p-5">
-          <FaRegComments className="w-5 h-5" />
+        <div className="my-3">
           <input
-            required
             ref={contentRef}
-            className="outline-none rounded-r-xl w-full bg-[#ECECEC] placeholder:text-black"
+            required
+            className="w-full p-3 border text-[14px] md:text-[16px] rounded-md focus:ring-2 focus:ring-[#71C55D] outline-none"
             placeholder="What's on your mind"
           />
         </div>
 
-        <div className="flex items-center gap-2 my-4 bg-[#ECECEC] rounded-xl p-5">
+        <div className="my-3">
           <input
-            required
             ref={priceRef}
-            className="outline-none rounded-r-xl w-full bg-[#ECECEC] placeholder:text-black"
+            required
+            className="w-full p-3 border text-[14px] md:text-[16px] rounded-md focus:ring-2 focus:ring-[#71C55D] outline-none"
             placeholder="Price"
           />
         </div>
 
-        <div className="flex items-center gap-2 my-4 bg-[#ECECEC] rounded-xl p-5">
+        <div className="my-3">
           <input
-            required
             ref={addressRef}
-            className="outline-none rounded-r-xl w-full bg-[#ECECEC] placeholder:text-black"
+            required
+            className="w-full p-3 border text-[14px] md:text-[16px] rounded-md focus:ring-2 focus:ring-[#71C55D] outline-none"
             placeholder="Address"
           />
         </div>
 
-        <div className="flex items-center gap-2 my-4 bg-[#ECECEC] rounded-xl p-5">
+        <div className="my-3">
           <input
-            required
             ref={cityRef}
-            className="outline-none rounded-r-xl w-full bg-[#ECECEC] placeholder:text-black"
+            required
+            className="w-full p-3 border text-[14px] md:text-[16px] rounded-md focus:ring-2 focus:ring-[#71C55D] outline-none"
             placeholder="City"
           />
         </div>
 
         {imageSrc.length > 0 && (
-          <div className="flex flex-col gap-2 pb-5">
+          <div className="flex flex-wrap gap-4 mt-4">
             {imageSrc.map((image, index) => (
-              <div key={image} className="relative">
+              <div key={index} className="relative">
                 <button
                   type="button"
                   onClick={() => handleImageRemove(index)}
-                  className="absolute top-2 left-2 bg-gray-400 w-6 h-6 text-center text-black rounded-full"
+                  className="absolute top-0 left-0 p-1 bg-red-500 rounded-full text-white"
                 >
                   ×
                 </button>
                 <Image
                   alt="Selected"
-                  className="w-full h-full"
+                  className="rounded-md"
                   src={image}
-                  width={1000}
-                  height={1000}
+                  width={100}
+                  height={100}
                 />
               </div>
             ))}
           </div>
         )}
 
-        <div className="flex gap-2 md:gap-0 justify-center md:justify-between items-center">
-          <div className="flex items-center gap-2">
-            <label
-              htmlFor="gallery"
-              className="cursor-pointer flex gap-2 items-center text-white bg-[#4fa2ae] px-5 py-2 rounded-lg font-medium"
-            >
-              <GrGallery />
-              <span>Gallery</span>
-            </label>
-            <input
-              ref={imageRef}
-              id="gallery"
-              onChange={handleOnChange}
-              type="file"
-              className="hidden"
-              multiple
-            />
-          </div>
+        <div className="flex gap-4 mt-6">
+          <label
+            htmlFor="gallery"
+            className="cursor-pointer text-[14px] md:text-[16px] flex items-center gap-2 text-white bg-[#71c55d] px-4 py-2 rounded-md"
+          >
+            <GrGallery />
+            <span>Gallery</span>
+          </label>
+          <input
+            ref={imageRef}
+            id="gallery"
+            onChange={handleOnChange}
+            type="file"
+            className="hidden"
+            multiple
+          />
 
           <button
             type="submit"
-            className="bg-[#4fa2ae] text-white px-5 py-2 rounded-lg font-medium flex gap-2 items-center"
+            className="bg-[#71c55d] text-[14px] md:text-[16px] text-white px-5 py-2 rounded-md"
           >
-            <MdOutlinePublish className="w-5 h-5" />
-            <span>{publish}</span>
+            <MdOutlinePublish className="inline-block" /> {publish}
           </button>
         </div>
       </form>
-      <div className="flex items-center gap-4">
-        <div className="bg-[#4FA2AE] h-9 w-5 rounded-sm"></div>
-        <h2 className="text-[#4FA2AE] text-[14px] md:text-[16px] font-semibold">
-          Posts
-        </h2>
-      </div>
-
-      <div className="text-white flex md:gap-20 justify-end">
-        <div className="flex mt-2 md:mt-0">
-          <button className="md:px-2" onClick={handleScrollLeft}>
-            <BsFillArrowLeftCircleFill className="h-6 md:h-8 w-6 md:w-8" />
-          </button>
-          <button className="px-2 md:px-2" onClick={handleScrollRight}>
-            <BsFillArrowRightCircleFill className="h-6 md:h-8 w-6 md:w-8" />
-          </button>
+      <div className="flex justify-between gap-4 my-10">
+        <div className="flex items-center gap-4">
+          <div className="bg-[#71c55d] h-9 w-3 md:w-5 rounded-sm"></div>
+          <h2 className="text-[#71c55d] text-xl font-bold">Posts</h2>
+        </div>
+        <div className="text-[#71c55d] flex md:gap-20 justify-end">
+          <div className="flex mt-2 md:mt-0">
+            <button className="md:px-2" onClick={handleScrollLeft}>
+              <BsFillArrowLeftCircleFill className="h-6 md:h-8 w-6 md:w-8" />
+            </button>
+            <button className="px-2 md:px-2" onClick={handleScrollRight}>
+              <BsFillArrowRightCircleFill className="h-6 md:h-8 w-6 md:w-8" />
+            </button>
+          </div>
         </div>
       </div>
 
       <div
-        className="mt-6 md:mt-10 flex overflow-x-scroll no-scrollbar gap-10"
+        className="flex overflow-x-scroll no-scrollbar gap-6 md:gap-10"
         style={{ scrollbarWidth: "none" }}
         ref={scrollContainerRef}
       >
@@ -270,7 +265,7 @@ const LeftSection = ({
               <Link href={`/market-place/${post.id}`}>
                 <div
                   key={post.id}
-                  className="bg-[#20203A] p-4 rounded-md w-[300px] min-w-[300px] flex-shrink-0"
+                  className="bg-[#F5F5F5] p-4 rounded-md w-[300px] min-w-[300px] flex-shrink-0 mb-4"
                 >
                   <div className="flex items-center gap-2">
                     {post.userImage ? (
@@ -287,8 +282,11 @@ const LeftSection = ({
                       </div>
                     )}
                     <div>
-                      <h3 className="text-white font-semibold">{post.user}</h3>
-                      <p className="text-sm text-gray-400">
+                      <h3 className=" font-semibold">
+                        {post.user}
+                      </h3>{" "}
+                      {/* Updated text color */}
+                      <p className="text-sm text-gray-500">
                         {new Date(post.createdAt).toLocaleDateString()}
                       </p>
                     </div>
@@ -304,13 +302,14 @@ const LeftSection = ({
                         className="object-cover w-full h-full"
                       />
                     </div>
-                    <h3 className="text-lg text-[#4FA2AE] font-semibold mt-4">
+                    {/* Updated Colors */}
+                    <h3 className="text-lg font-semibold mt-4">
                       {post.title}
                     </h3>
-                    <p className="text-md text-[#4FA2AE] mt-2">
+                    <p className="text-md mt-2">
                       Price: ${post.price}
                     </p>
-                    <p className="text-md text-gray-400 mt-2">
+                    <p className="text-md  mt-2">
                       {post.address}, {post.city}
                     </p>
                   </div>

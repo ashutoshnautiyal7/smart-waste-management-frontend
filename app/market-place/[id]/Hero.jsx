@@ -17,7 +17,7 @@ const Hero = ({ data }) => {
   };
 
   return (
-    <section className="bg-[#30304C] pt-7 md:pt-10 px-[1.2rem] md:px-[2.5rem]">
+    <section className="bg-[#F4F4F4] lg:rounded-md lg:shadow-md p-10 lg:p-10">
       <div className="flex gap-10 flex-col xl:flex-row justify-center items-center xl:items-start">
         {/* Image Thumbnails and Main Image */}
         <div className="lg:min-w-[49rem] flex flex-col-reverse md:flex-row gap-5 sm:gap-8 md:gap-4 lg:gap-6">
@@ -27,39 +27,42 @@ const Hero = ({ data }) => {
                 key={index}
                 src={image}
                 alt={`Thumbnail ${index + 1}`}
-                className="w-[4rem] sm:w-[7rem] lg:w-[8rem] sm:h-[9rem] lg:h-[10rem] cursor-pointer"
+                className={`w-[4rem] sm:w-[7rem] lg:w-[8rem] sm:h-[9rem] lg:h-[10rem] cursor-pointer rounded-md ${
+                  index === mainImageIndex
+                    ? "border-4 border-[#71c55d]"
+                    : "border-2 border-gray-500"
+                }`}
                 onClick={() => setMainImageIndex(index)}
               />
             ))}
           </div>
-          <div className="relative w-[19rem] sm:w-[35rem] lg:w-[40rem] h-[23rem] sm:h-[40rem] lg:h-[45rem] rounded-lg md:rounded-xl bg-white justify-center items-center flex">
+          <div className="relative w-[19rem] sm:w-[30rem] h-[20rem] sm:h-[35rem] overflow-hidden rounded-md">
             <img
               src={data.images[mainImageIndex]}
               alt={`Main Image ${mainImageIndex + 1}`}
-              className="sm:w-[26rem] sm:h-[30rem]"
+              className="object-cover w-full h-full"
             />
-            <img
-              src="/Images/half-left.png"
-              alt="Left Arrow"
-              className="absolute left-1.5 sm:left-2.5 lg:left-5 w-5 sm:w-14 h-3.5 sm:h-8 cursor-pointer"
+            <button
               onClick={handleClickPrev}
-            />
-            <img
-              src="/Images/half-right.png"
-              alt="Right Arrow"
-              className="absolute right-1.5 sm:right-2.5 lg:right-5 w-5 sm:w-14 h-3.5 sm:h-8 cursor-pointer"
+              className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-[#71c55d]  p-3 rounded-full"
+            >
+              &#10094;
+            </button>
+            <button
               onClick={handleClickNext}
-            />
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-[#71c55d] p-3 rounded-full"
+            >
+              &#10095;
+            </button>
           </div>
         </div>
-
-        {/* Product Details */}
-        <div className="text-white max-w-[43.5rem] lg:max-w-[49rem]">
+        {/* Text content */}
+        <div className=" max-w-[43.5rem] lg:max-w-[49rem] xl:mt-10">
           <h1 className="text-[40px] md:text-[50px] font-bold leading-[110%]">
             {data.title}
           </h1>
           <div className="mt-2 md:mt-3">
-            <span className="text-[#4FA2AE] text-[26px] md:text-[36px] leading-[40px] font-semibold">
+            <span className="text-[#71c55d] text-[26px] md:text-[36px] leading-[40px] font-semibold">
               ₹{data.price}
             </span>
           </div>
@@ -70,9 +73,6 @@ const Hero = ({ data }) => {
             <p className="whitespace-pre-wrap">Address: {data.address}</p>
           </div>
         </div>
-      </div>
-      <div className="mt-10 md:mt-14">
-        <div className="h-[1px] w-full bg-white"></div>
       </div>
     </section>
   );

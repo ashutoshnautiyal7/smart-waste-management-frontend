@@ -43,9 +43,9 @@ const Navbar = () => {
   };
 
   return (
-    <header className="w-[100vw] h-auto fixed shadow-lg bg-white z-100">
+    <header className="w-[100vw] h-auto fixed shadow-lg bg-white z-50">
       {/* Main Navbar section */}
-      <div className="w-[85%] py-[1.4rem] flex justify-between mx-auto items-center relative">
+      <div className="w-[85%] py-[0.8rem] lg:py-[1.4rem] flex justify-between mx-auto items-center relative">
         <div className="flex items-center justify-between w-full">
           <div>
             <Link
