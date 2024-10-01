@@ -372,16 +372,14 @@ const CommunityPost = ({ post, user, token, prof }) => {
                         width={1000}
                       />
                     ) : (
-                      <div className="bg-gray-400 w-8 h-8 text-[14px] rounded-full flex items-center justify-center text-white">
-                        {post.user.charAt(0).toUpperCase()}
-                      </div>
-                    )}
-                    {/* <Image
+                      <Image
                       className="relative h-[35px] w-[35px] rounded-full object-cover"
                       height={1000}
                       width={1000}
-                      src={comment.userImage ? comment.userImage : "/prof.jpg"}
-                    ></Image> */}
+                      src={comment.userImage ? comment.userImage : "/prof.webp"}
+                    ></Image>
+                    )}
+                  
                     <span className="text-sm font-semibold ml-1">
                       {comment.username}
                     </span>

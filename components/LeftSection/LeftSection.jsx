@@ -201,7 +201,7 @@ const LeftSection = ({
             ref={contentRef}
             required
             className="w-full p-3 border text-[14px] md:text-[16px] rounded-md focus:ring-2 focus:ring-[#71C55D] outline-none"
-            placeholder="What's on your mind"
+            placeholder="description"
           />
         </div>
 
@@ -231,6 +231,19 @@ const LeftSection = ({
             placeholder="City"
           />
         </div>
+
+
+          {/* Waste Category Dropdown */}
+    <div>
+        <select value={wasteCategory} onChange={handleWasteCategoryChange} required>
+          <option value="">Select Waste Category</option>
+          <option value="PLASTIC">Plastic</option>
+          <option value="METAL">Metal</option>
+          <option value="PAPER">Paper</option>
+          <option value="ORGANIC">Organic</option>
+          <option value="E_WASTE">E-waste</option>
+        </select>
+      </div>
 
         {imageSrc.length > 0 && (
           <div className="flex flex-wrap gap-4 mt-4">
@@ -280,6 +293,22 @@ const LeftSection = ({
           </button>
         </div>
       </form>
+
+       {/* Category Filter */}
+  <div className="flex items-center gap-4 my-4">
+    <select
+      className="outline-none bg-[#71c55d] text-white rounded-md px-3 py-2"
+      onChange={handleCategoryFilter}
+    >
+      <option value="">All Categories</option>
+      <option value="PLASTIC">Plastic</option>
+      <option value="METAL">Metal</option>
+      <option value="PAPER">Paper</option>
+      <option value="ORGANIC">Organic</option>
+      <option value="E_WASTE">E-waste</option>
+    </select>
+  </div>
+
       <div className="flex justify-between gap-4 my-10">
         <div className="flex items-center gap-4">
           <div className="bg-[#71c55d] h-9 w-3 md:w-5 rounded-sm"></div>
@@ -303,8 +332,8 @@ const LeftSection = ({
         ref={scrollContainerRef}
       >
         {/* Map through posts */}
-        {posts.length > 0 ? (
-          posts.map((post) => (
+        {filteredPosts.length > 0 ? (
+          filteredPosts.map((post) => (
             <>
               <Link href={`/market-place/${post.id}`}>
                 <div
@@ -351,7 +380,7 @@ const LeftSection = ({
                       {post.title}
                     </h3>
                     <p className="text-md mt-2">
-                      Price: ${post.price}
+                      Price: ₹ {post.price}
                     </p>
                     <p className="text-md  mt-2">
                       {post.address}, {post.city}

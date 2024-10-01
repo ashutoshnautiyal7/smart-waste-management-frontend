@@ -116,7 +116,7 @@ const LeftSection2 = ({
         </div>
         <div className="flex items-center gap-2 my-4 bg-[#F6F3F3] rounded-xl p-5">
           <div className="relative h-[30px] w-[30px] rounded-l-xl ">
-            <Image alt="image" fill={true} src={"/person.png"}></Image>
+            <Image alt="image" fill={true} src={"/comment.png"}></Image>
           </div>
           <input
             ref={contentRef}

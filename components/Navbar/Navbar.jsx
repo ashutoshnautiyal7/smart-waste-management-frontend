@@ -22,18 +22,18 @@ const Navbar = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  useEffect(() => {
-    const activeIndex = ["", "chat"].indexOf(
-      activeLink.replace("/", "")
-    );
-    if (linksRef.current[activeIndex]) {
-      const link = linksRef.current[activeIndex];
-      setIndicatorStyle({
-        width: `${link.offsetWidth}px`,
-        left: `${link.offsetLeft}px`,
-      });
-    }
-  }, [activeLink]);
+  // useEffect(() => {
+  //   const activeIndex = ["", "chat", "market-place", "community"].indexOf(
+  //     activeLink.replace("/", "chat", "market-place", "community")
+  //   );
+  //   if (linksRef.current[activeIndex]) {
+  //     const link = linksRef.current[activeIndex];
+  //     setIndicatorStyle({
+  //       width: `${link.offsetWidth}px`,
+  //       left: `${link.offsetLeft}px`,
+  //     });
+  //   }
+  // }, [activeLink]);
 
   const linkNames = {
     "/": "Home",
@@ -53,7 +53,7 @@ const Navbar = () => {
               aria-label="Home"
               className="text-[#71c55d] text-xl font-bold"
             >
-              logo
+              SWM
             </Link>
           </div>
           <div>
