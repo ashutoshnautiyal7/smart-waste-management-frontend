@@ -6,7 +6,10 @@ import Link from "next/link";
 import CommunityPost from "../CommunityPost/CommunityPost";
 import { GrGallery } from "react-icons/gr";
 import { MdOutlinePublish } from "react-icons/md";
-import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from "react-icons/bs";
+import {
+  BsFillArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from "react-icons/bs";
 
 const LeftSection2 = ({
   loading,

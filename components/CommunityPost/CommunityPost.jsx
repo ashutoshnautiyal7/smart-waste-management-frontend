@@ -288,8 +288,10 @@ const CommunityPost = ({ post, user, token, prof }) => {
             </div>
           </form>
         ) : (
-          <div >
-            <h2 className="text-2xl font-semibold mt-2 md:mt-3">{post?.title}</h2>
+          <div>
+            <h2 className="text-2xl font-semibold mt-2 md:mt-3">
+              {post?.title}
+            </h2>
             {isValidUrl(post?.content) ? (
               <Link
                 className="text-blue-700"
