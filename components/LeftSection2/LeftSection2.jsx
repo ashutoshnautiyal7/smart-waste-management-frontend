@@ -111,9 +111,11 @@ const LeftSection2 = ({
             placeholder="Title"
           />
         </div>
-
-        <div className="my-3">
-          <textarea
+        <div className="flex items-center gap-2 my-4 bg-[#F6F3F3] rounded-xl p-5">
+          <div className="relative h-[30px] w-[30px] rounded-l-xl ">
+            <Image alt="image" fill={true} src={"/person.png"}></Image>
+          </div>
+          <input
             ref={contentRef}
             required
             className="w-full p-3 border text-[14px] md:text-[16px] rounded-md focus:ring-2 focus:ring-[#71C55D] outline-none"

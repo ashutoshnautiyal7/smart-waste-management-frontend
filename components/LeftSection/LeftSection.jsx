@@ -30,6 +30,14 @@ const LeftSection = ({
   const scrollContainerRef = useRef(null);
   const [publish, setPublish] = useState("Publish");
 
+  // Waste Category State
+  const [wasteCategory, setWasteCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [filteredPosts, setFilteredPosts] = useState(posts);
+
+
+  
+
   const handleScrollRight = () => {
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current;
@@ -105,7 +113,7 @@ const LeftSection = ({
       }
     }
 
-    const data = {
+    const postData = {
       title,
       email: user.email,
       content,
@@ -113,12 +121,15 @@ const LeftSection = ({
       price,
       address,
       city,
+      wasteCategory, // Adding the waste category to the data
     };
+
+    
 
     try {
       const res = await axios.post(
         "http://localhost:3000/api/createpost",
-        data,
+        postData,
         { headers: { Authorization: token } }
       );
       titleRef.current.value = "";
@@ -135,6 +146,39 @@ const LeftSection = ({
     }
   };
 
+  // Handle category change
+  const handleWasteCategoryChange = (e) => {
+    setWasteCategory(e.target.value);
+  };
+
+  // Handle category filter for posts
+  const handleCategoryFilter = (e) => {
+    const selected = e.target.value;
+    setSelectedCategory(selected);
+
+    if (selected === '') {
+      setFilteredPosts(posts); // Show all posts if no category is selected
+    } else {
+      const filtered = posts.filter((post) => post.wasteCategory === selected);
+      setFilteredPosts(filtered);
+    }
+  };
+
+   // Update filtered posts when posts or selectedCategory changes
+   useEffect(() => {
+    if (selectedCategory === '') {
+      setFilteredPosts(posts);
+    } else {
+      const filtered = posts.filter((post) => post.wasteCategory === selectedCategory);
+      setFilteredPosts(filtered);
+    }
+  }, [posts, selectedCategory]);
+
+  console.log("the selected category is " , selectedCategory);
+  console.log("the filtered posts are : " , filteredPosts)
+
+
+  
   return (
     <section className="bg-white p-2 lg:p-6 lg:rounded-md lg:shadow-md">
       <form

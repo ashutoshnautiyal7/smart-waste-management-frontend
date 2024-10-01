@@ -11,7 +11,7 @@ import GetCookie from "@/components/GetCookie/GettCookie";
 
 const MarketPlace = () => {
   //   const { data: session, status } = useSession();
-  // const router = useRouter();
+  const router = useRouter();
   const token = typeof window !== "undefined" ? GetCookie("token") : null;
   const [user, setUser] = useState("");
   const [size, setSize] = useState(0);
