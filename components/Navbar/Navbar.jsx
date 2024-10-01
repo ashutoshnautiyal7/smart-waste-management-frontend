@@ -38,8 +38,8 @@ const Navbar = () => {
   const linkNames = {
     "/": "Home",
     "/chat": "Chat",
-    // "/market-": "Market Place",
-    // "/community": "Community",
+    "/market-place": "Market Place",
+    "/community": "Community",
   };
 
   return (
