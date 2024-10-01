@@ -4,6 +4,9 @@ import { debounce, forEach, update } from "lodash";
 import { format } from "timeago.js";
 import axios from "axios";
 import Link from "next/link";
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import { FaComment } from "react-icons/fa";
+import { GrGallery } from "react-icons/gr";
 import CommunityComment from "../CommunityComment/CommunityComment";
 
 const CommunityPost = ({ post, user, token, prof }) => {
@@ -55,11 +58,9 @@ const CommunityPost = ({ post, user, token, prof }) => {
       postId,
     };
     try {
-      const res = await axios.post(
-        "http://localhost:3000/api/likepost",
-        body,
-        { headers: { Authorization: token } }
-      );
+      const res = await axios.post("http://localhost:3000/api/likepost", body, {
+        headers: { Authorization: token },
+      });
       setIsLiked(!isLiked);
       setLikes(likes + (isLiked ? -1 : 1));
     } catch (err) {}
@@ -195,27 +196,24 @@ const CommunityPost = ({ post, user, token, prof }) => {
   };
   return (
     <div
-      className={`bg-white p-4 md:p-6 flex text-black ${
-        prof !== "prof" && "last:rounded-b-3xl"
-      }`}
+      className={`bg-[#F4F4F4] rounded-md p-4 md:p-6 flex text-black relative`}
     >
-      <div className="w-full md:w-9/12">
-        <div className="flex items-center gap-2 my-2">
-          <div className="relative rounded-full h-[60px] w-[60px]">
-            <Image
-              alt="image"
-              className="rounded-full object-cover"
-              fill={true}
-              src={
-                prof === "prof"
-                  ? user.image
-                    ? user.image
-                    : "/prof.webp"
-                  : post.userImage
-                  ? post.userImage
-                  : "/prof.webp"
-              }
-            ></Image>
+      <div className="w-full">
+        <div className="flex items-center">
+          <div className="relative flex items-center rounded-full h-[60px] w-[60px]">
+            {post.userImage ? (
+              <Image
+                src={post.userImage}
+                alt={post.user}
+                width={40}
+                height={40}
+                className="rounded-full"
+              />
+            ) : (
+              <div className="bg-gray-400 w-10 h-10 rounded-full flex items-center justify-center text-white">
+                {post.user.charAt(0).toUpperCase()}
+              </div>
+            )}
           </div>
           <div className="flex flex-col">
             <h2 className="text-sm font-semibold">
@@ -251,15 +249,15 @@ const CommunityPost = ({ post, user, token, prof }) => {
                     }}
                     className="cursor-pointer relative top-4 -left-2"
                   >
-                    <span className="bg-gray-400 w-fit text-black px-2 py-0.5 font-medium rounded-full flex justify-center items-center">
+                    <span className="absolute top-0 left-0 p-1 bg-red-500 rounded-full text-white">
                       ×
                     </span>
                   </div>
                   <Image
                     alt="image"
-                    className="w-full h-full"
-                    width={1000}
-                    height={1000}
+                    className="rounded-md"
+                    width={100}
+                    height={100}
                     src={image}
                   ></Image>
                 </div>
@@ -268,14 +266,9 @@ const CommunityPost = ({ post, user, token, prof }) => {
             <div className="flex w-full justify-between items-center py-2">
               <label
                 for="photo"
-                className="cursor-pointer flex items-center justify-center gap-2 md:gap-4 rounded-full bg-[#C2F6C8] text-black px-6 py-2"
+                className="cursor-pointer text-[14px] md:text-[16px] flex items-center gap-2 text-white bg-[#71c55d] px-4 py-2 rounded-md"
               >
-                <Image
-                  alt="image"
-                  width={20}
-                  height={20}
-                  src={"/gallery.png"}
-                ></Image>
+                <GrGallery />
                 <span>Gallery</span>
               </label>
               <input
@@ -288,7 +281,7 @@ const CommunityPost = ({ post, user, token, prof }) => {
               />
               <button
                 type="submit"
-                className="bg-[#2CC34D] px-3 py-1 text-white rounded-md font-medium"
+                className="cursor-pointer text-[14px] md:text-[16px] flex items-center gap-2 text-white bg-[#71c55d] px-4 py-2 rounded-md"
               >
                 {update}
               </button>
@@ -296,7 +289,9 @@ const CommunityPost = ({ post, user, token, prof }) => {
           </form>
         ) : (
           <div>
-            <h2 className="text-2xl font-bold">{post?.title}</h2>
+            <h2 className="text-2xl font-semibold mt-2 md:mt-3">
+              {post?.title}
+            </h2>
             {isValidUrl(post?.content) ? (
               <Link
                 className="text-blue-700"
@@ -309,12 +304,15 @@ const CommunityPost = ({ post, user, token, prof }) => {
             ) : (
               <p>{post?.content}</p>
             )}
-            <div className="flex flex-col">
+            <div className="flex flex-col mt-2 md:mt-3">
               {post?.images?.map((image) => (
-                <div key={image} className="relative w-full h-full my-2">
+                <div
+                  key={image}
+                  className="relative w-full md:w-[500px] h-full md:h-[500px] my-2"
+                >
                   <Image
                     alt="image"
-                    className="h-full w-full"
+                    className="h-full w-full object-cover"
                     width={1000}
                     height={1000}
                     src={image}
@@ -322,35 +320,23 @@ const CommunityPost = ({ post, user, token, prof }) => {
                 </div>
               ))}
             </div>
-            <div className="flex items-center gap-8 mt-4">
+            <div className="flex items-center gap-8 mt-2">
               <div className="cursor-pointer flex items-center justify-center gap-2">
-                <Image
-                  alt="image"
-                  onClick={handleLike}
-                  height={25}
-                  width={25}
-                  src={isLiked ? "/like.png" : "/empty.png"}
-                ></Image>
+                <div onClick={handleLike}>
+                  {isLiked ? (
+                    <MdFavorite className="w-6 h-6 text-[#FF0000]" />
+                  ) : (
+                    <MdFavoriteBorder className="w-6 h-6 text-[#FF0000]" />
+                  )}
+                </div>
                 <span className="font-medium">{likes}</span>
               </div>
               <div className="cursor-pointer flex items-center justify-center gap-2">
-                <Image
-                  alt="image"
+                <FaComment
+                  className="w-5 h-5 text-[#71c55d]"
                   onClick={() => setcommopen(!commOpen)}
-                  height={20}
-                  width={23}
-                  src={"/comment.png"}
-                ></Image>
+                />
                 <span className="font-medium">{comments.length}</span>
-              </div>
-              <div className="flex items-center justify-center gap-1">
-                <Image
-                  alt="image"
-                  height={20}
-                  width={20}
-                  src={"/share.png"}
-                ></Image>
-                <span className="text-xs">Share</span>
               </div>
             </div>
           </div>
@@ -360,12 +346,12 @@ const CommunityPost = ({ post, user, token, prof }) => {
             <form onSubmit={handleSubmit} className="py-1 flex gap-2">
               <input
                 required={true}
-                className="outline-none w-full bg-slate-200 px-2 py-1 rounded-lg"
+                className="outline-none w-full bg-white px-2 py-1.5 rounded-lg"
                 placeholder="Write Comment"
               ></input>
               <button
                 type="submit"
-                className="px-3 py-1 bg-[#2CC34D] rounded-lg text-white"
+                className="px-3 py-1 text-[14px]  bg-[#71c55d] rounded-lg text-white"
               >
                 Post
               </button>
@@ -374,27 +360,40 @@ const CommunityPost = ({ post, user, token, prof }) => {
               {comments?.slice(0, numCommentsToShow).map((comment) => (
                 <div
                   key={comment.commentId}
-                  className="flex flex-col gap-0.5 px-2 py-1 bg-slate-200 rounded-lg"
+                  className="flex flex-col gap-0.5 p-2.5 bg-white rounded-lg"
                 >
                   <div className="flex gap-1 items-center">
-                    <Image
+                    {post.userImage ? (
+                      <Image
+                        src={post.userImage}
+                        alt={post.user}
+                        className="relative h-[35px] w-[35px] rounded-full object-cover"
+                        height={1000}
+                        width={1000}
+                      />
+                    ) : (
+                      <div className="bg-gray-400 w-8 h-8 text-[14px] rounded-full flex items-center justify-center text-white">
+                        {post.user.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                    {/* <Image
                       className="relative h-[35px] w-[35px] rounded-full object-cover"
                       height={1000}
                       width={1000}
-                      src={comment.userImage ? comment.userImage : "/prof.webp"}
-                    ></Image>
-                    <span className="text-sm font-semibold">
+                      src={comment.userImage ? comment.userImage : "/prof.jpg"}
+                    ></Image> */}
+                    <span className="text-sm font-semibold ml-1">
                       {comment.username}
                     </span>
                   </div>
-                  <div className="flex justify-between items-end">
+                  <div className="flex justify-between items-end mt-1">
                     <CommunityComment text={comment.content} />
                     {comment.userId == user?.id && (
                       <button
                         onClick={(e) => {
                           handleDeleteComment(e, comment.commentId);
                         }}
-                        className="flex items-center justify-center bg-[#2CC34D] px-1.5 py-1 rounded-md text-sm text-white"
+                        className="flex items-center justify-center bg-[#71c55d] px-2.5 py-1 rounded-md text-sm text-white"
                       >
                         Delete
                       </button>
@@ -416,7 +415,7 @@ const CommunityPost = ({ post, user, token, prof }) => {
           </div>
         )}
       </div>
-      <div className="w-1/12 md:w-3/12 flex justify-end">
+      <div className="absolute top-5 right-5  flex justify-end">
         <div className="flex flex-col items-end">
           <span
             onClick={() => {
@@ -429,10 +428,10 @@ const CommunityPost = ({ post, user, token, prof }) => {
             •••
           </span>
           {openMenu && post.userId === user.id && (
-            <div className="flex flex-col bg-slate-400 gap-[1px]">
+            <div className="flex flex-col bg-[#71c55d] text-white rounded-md">
               <div
                 onClick={handleDelete}
-                className="cursor-pointer flex justify-center items-center bg-slate-300 px-5 py-1"
+                className="cursor-pointer flex justify-center items-center px-5 py-2 border-b border-gray-300"
               >
                 Delete
               </div>
@@ -440,7 +439,7 @@ const CommunityPost = ({ post, user, token, prof }) => {
                 onClick={() => {
                   setOpenUpdate(!openUpdate), setOpenMenu(false);
                 }}
-                className="cursor-pointer flex justify-center items-center bg-slate-300 px-5 py-1"
+                className="cursor-pointer flex justify-center items-center px-5 py-2"
               >
                 {openUpdate ? "Cancel" : "Update"}
               </div>

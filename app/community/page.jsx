@@ -67,8 +67,8 @@ const CommunityPage = () => {
   console.log("the community posts are  ", posts);
 
   return (
-    <main className="w-full pt-[4rem]">
-      <div className="px-[1.2rem] md:px-[rem] md:pt-6 py-[15rem] flex items-center flex-col bg-[#30304C]">
+    <main className="w-[95%] md:w-[90%] mx-auto pb-[2rem] md:pb-[3rem] pt-[6rem]">
+      <div className="flex items-center flex-col ">
         <div className="w-full">
           {/* <Topbar onSearch={onSearch} user={user} /> */}
           <LeftSection2

@@ -43,9 +43,9 @@ const Navbar = () => {
   };
 
   return (
-    <header className="w-[100vw] h-auto fixed shadow-lg bg-white z-100">
+    <header className="w-[100vw] h-auto fixed shadow-lg bg-white z-50">
       {/* Main Navbar section */}
-      <div className="w-[85%] py-[1.4rem] flex justify-between mx-auto items-center relative">
+      <div className="w-[85%] py-[0.8rem] lg:py-[1.4rem] flex justify-between mx-auto items-center relative">
         <div className="flex items-center justify-between w-full">
           <div>
             <Link
@@ -85,7 +85,7 @@ const Navbar = () => {
 
         {/* Burger icon */}
         <div className="lg:hidden">
-          <Hamburger toggled={isOpen} toggle={setOpen} size={20} />
+          <Hamburger toggled={isOpen} toggle={setOpen} size={17} />
         </div>
       </div>
 
@@ -95,12 +95,12 @@ const Navbar = () => {
           isOpen ? "h-[100vh] opacity-100" : "h-0 opacity-0"
         }`}
       >
-        <div className="text-[16px] flex flex-col font-bold px-8 pt-6">
+        <div className="text-[16px] flex flex-col font-semibold px-8 pt-6">
           {Object.keys(linkNames).map((path, index) => (
             <div key={path}>
               <Link
                 href={path}
-                className={activeLink === path ? "text-[#1F94F3]" : ""}
+                className={activeLink === path ? "text-[#71c55d]" : ""}
                 onClick={() => handleLinkClick(path)}
               >
                 {linkNames[path]}
@@ -110,18 +110,6 @@ const Navbar = () => {
               )}
             </div>
           ))}
-        </div>
-        {/* Buttons */}
-        <div className="flex items-center justify-center w-full p-8">
-          <Link
-            href={"/services"}
-            onClick={() => handleLinkClick("services")}
-            className="w-full"
-          >
-            <button className="px-[3rem] py-3 rounded-3xl w-full text-white bg-[#1F94F3] hover:bg-[#077bda] font-poppins">
-              Help Me Study Abroad
-            </button>
-          </Link>
         </div>
       </nav>
     </header>
