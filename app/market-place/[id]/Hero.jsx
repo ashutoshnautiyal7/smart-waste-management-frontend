@@ -1,7 +1,11 @@
 "use client";
+import Link from "next/link";
 import React, { useState } from "react";
 
 const Hero = ({ data }) => {
+
+
+  console.log("the data is ", data)
   const [mainImageIndex, setMainImageIndex] = useState(0);
 
   const handleClickPrev = () => {
@@ -68,6 +72,9 @@ const Hero = ({ data }) => {
           </div>
           <div className="mt-7 md:mt-6 leading-[28.8px]">
             <p className="whitespace-pre-wrap">Address: {data.address}</p>
+          </div>
+          <div className="mt-7 md:mt-6 leading-[28.8px]">
+            <Link href={`tel:${data.user.phone}`} className="whitespace-pre-wrap">Phone: {data.user.phone}</Link>
           </div>
         </div>
       </div>

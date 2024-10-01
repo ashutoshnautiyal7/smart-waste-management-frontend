@@ -23,7 +23,7 @@ const Navbar = () => {
   }, [pathname]);
 
   useEffect(() => {
-    const activeIndex = ["", "about", "market-place", "community"].indexOf(
+    const activeIndex = ["", "chat"].indexOf(
       activeLink.replace("/", "")
     );
     if (linksRef.current[activeIndex]) {
@@ -37,9 +37,9 @@ const Navbar = () => {
 
   const linkNames = {
     "/": "Home",
-    "/about": "About Us",
-    "/market-place": "Market Place",
-    "/community": "Community",
+    "/chat": "Chat",
+    // "/market-": "Market Place",
+    // "/community": "Community",
   };
 
   return (

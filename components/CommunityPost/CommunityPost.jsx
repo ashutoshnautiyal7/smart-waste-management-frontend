@@ -210,10 +210,10 @@ const CommunityPost = ({ post, user, token, prof }) => {
                 prof === "prof"
                   ? user.image
                     ? user.image
-                    : "/prof.jpg"
+                    : "/prof.webp"
                   : post.userImage
                   ? post.userImage
-                  : "/prof.jpg"
+                  : "/prof.webp"
               }
             ></Image>
           </div>
@@ -381,7 +381,7 @@ const CommunityPost = ({ post, user, token, prof }) => {
                       className="relative h-[35px] w-[35px] rounded-full object-cover"
                       height={1000}
                       width={1000}
-                      src={comment.userImage ? comment.userImage : "/prof.jpg"}
+                      src={comment.userImage ? comment.userImage : "/prof.webp"}
                     ></Image>
                     <span className="text-sm font-semibold">
                       {comment.username}
