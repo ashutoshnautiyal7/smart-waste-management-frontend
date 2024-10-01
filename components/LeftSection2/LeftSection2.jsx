@@ -4,6 +4,12 @@ import Post from "../post/Post";
 import axios from "axios";
 import Link from "next/link";
 import CommunityPost from "../CommunityPost/CommunityPost";
+import { GrGallery } from "react-icons/gr";
+import { MdOutlinePublish } from "react-icons/md";
+import {
+  BsFillArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from "react-icons/bs";
 
 const LeftSection2 = ({
   loading,
@@ -93,104 +99,85 @@ const LeftSection2 = ({
   };
 
   return (
-    <div>
+    <section className="bg-white p-2 lg:p-6 lg:rounded-md lg:shadow-md">
       <form
         onSubmit={handleSubmit}
-        className="bg-white text-black my-2 rounded-t-xl p-3 md:p-5 overflow-hidden"
+        className="bg-[#F4F4F4] text-black rounded-md p-3 lg:p-5 mb-6"
       >
-        <h2 className="text-base font-medium ml-5">Create Post</h2>
-        <div className="flex items-center gap-2 my-2 bg-[#F6F3F3] rounded-xl py-3 px-5">
+        <h2 className="font-bold text-[#71c55d] text-xl mb-4">Create Post</h2>
+
+        <div className="my-3">
           <input
-            required={true}
             ref={titleRef}
-            className="outline-none rounded-r-xl w-full bg-[#F6F3F3] placeholder:text-black"
+            required
+            className="w-full p-3 border text-[14px] md:text-[16px] rounded-md focus:ring-2 focus:ring-[#71C55D] outline-none"
             placeholder="Title"
-          ></input>
+          />
         </div>
         <div className="flex items-center gap-2 my-4 bg-[#F6F3F3] rounded-xl p-5">
           <div className="relative h-[30px] w-[30px] rounded-l-xl ">
-            <Image alt="image" fill={true} src={"/prof.webp"}></Image>
+            <Image alt="image" fill={true} src={"/person.png"}></Image>
           </div>
           <input
             ref={contentRef}
-            required={true}
-            className="outline-none rounded-r-xl w-full bg-[#F6F3F3] placeholder:text-black"
+            required
+            className="w-full p-3 border text-[14px] md:text-[16px] rounded-md focus:ring-2 focus:ring-[#71C55D] outline-none"
             placeholder="What's on your mind"
-          ></input>
+          />
         </div>
-        {imageSrc && (
-          <div className="flex flex-col gap-2 pb-5">
+
+        {imageSrc.length > 0 && (
+          <div className="flex flex-wrap gap-4 mt-4">
             {imageSrc.map((image, index) => (
-              <div key={image} className="">
-                <div
+              <div key={index} className="relative">
+                <button
+                  type="button"
                   onClick={() => handleImageRemove(index)}
-                  className="cursor-pointer relative top-4 -left-2"
+                  className="absolute top-0 left-0 p-1 bg-red-500 rounded-full text-white"
                 >
-                  <span className="bg-gray-400 w-fit text-black px-2 py-0.5 font-medium rounded-full flex justify-center items-center">
-                    ×
-                  </span>
-                </div>
+                  ×
+                </button>
                 <Image
-                  alt="image"
-                  className="w-full h-full"
+                  alt="Selected"
+                  className="rounded-md"
                   src={image}
-                  width={1000}
-                  height={1000}
+                  width={100}
+                  height={100}
                 />
               </div>
             ))}
           </div>
         )}
-        <div className="flex gap-2 md:gap-0 justify-center md:justify-between items-center md:text-base text-sm">
-          <div className="flex items-center justify-center gap-1.5 md:gap-5">
-            <label
-              for="gallery"
-              className="cursor-pointer flex items-center justify-center gap-2 md:gap-4 rounded-t-2xl bg-[#C2F6C8] text-black px-6 py-2"
-            >
-              <Image
-                alt="image"
-                width={20}
-                height={20}
-                src={"/gallery.png"}
-              ></Image>
-              <span>Gallery</span>
-            </label>
-            <input
-              name="file"
-              ref={imageRef}
-              onChange={handleOnChange}
-              id="gallery"
-              className="hidden"
-              type="file"
-            />
-            <label className="flex items-center justify-center gap-2 md:gap-4 rounded-t-2xl bg-[#C2F6C8] text-black px-6 py-2">
-              <Image
-                alt="image"
-                width={20}
-                height={20}
-                src={"/tag.png"}
-              ></Image>
-              <span>Tag</span>
-            </label>
-          </div>
+
+        <div className="flex gap-4 mt-6">
+          <label
+            htmlFor="gallery"
+            className="cursor-pointer text-[14px] md:text-[16px] flex items-center gap-2 text-white bg-[#71c55d] px-4 py-2 rounded-md"
+          >
+            <GrGallery />
+            <span>Gallery</span>
+          </label>
+          <input
+            ref={imageRef}
+            id="gallery"
+            onChange={handleOnChange}
+            type="file"
+            className="hidden"
+            multiple
+          />
+
           <button
             type="submit"
-            className="bg-[#2CC34D] flex items-center justify-center gap-2 text-white rounded-t-2xl px-6 py-2"
+            className="bg-[#71c55d] text-[14px] md:text-[16px] text-white px-5 py-2 rounded-md"
           >
-            <Image
-              alt="image"
-              width={20}
-              height={20}
-              src={"/publish.png"}
-            ></Image>
-            <span>{publish}</span>
+            <MdOutlinePublish className="inline-block" /> {publish}
           </button>
         </div>
       </form>
       {loading ? (
         <div className="w-full flex justify-center py-5">Loading...</div>
       ) : (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-5">
           {posts?.map((p, index) => (
             <CommunityPost key={p?.id} post={p} user={user} token={token} />
           ))}
@@ -230,7 +217,7 @@ const LeftSection2 = ({
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

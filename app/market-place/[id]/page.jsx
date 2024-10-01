@@ -16,7 +16,7 @@ const page = async ({ params }) => {
   });
   console.log("the prodcts data is ", data);
   return (
-    <div className="pt-32">
+    <div className="w-[90%] mx-auto pb-[2rem] md:pb-[3rem] pt-[7rem]">
       <Hero data={data} />
     </div>
   );
