@@ -83,7 +83,7 @@ model Like {
 
 // epr system for uttarakhand region 
 
-// Enum for waste categories
+// Enum for Landslidecategories
 enum WasteCategory {
   PAPER
   PLASTIC

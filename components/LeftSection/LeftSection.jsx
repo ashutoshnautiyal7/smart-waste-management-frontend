@@ -30,7 +30,7 @@ const LeftSection = ({
   const scrollContainerRef = useRef(null);
   const [publish, setPublish] = useState("Publish");
 
-  // Waste Category State
+  // LandslideCategory State
   const [wasteCategory, setWasteCategory] = useState("");
   const [selectedCategory, setSelectedCategory] = useState('');
   const [filteredPosts, setFilteredPosts] = useState(posts);
@@ -121,7 +121,7 @@ const LeftSection = ({
       price,
       address,
       city,
-      wasteCategory, // Adding the waste category to the data
+      wasteCategory, // Adding the Landslidecategory to the data
     };
 
     
@@ -233,10 +233,10 @@ const LeftSection = ({
         </div>
 
 
-          {/* Waste Category Dropdown */}
+          {/* LandslideCategory Dropdown */}
     <div>
         <select value={wasteCategory} onChange={handleWasteCategoryChange} required>
-          <option value="">Select Waste Category</option>
+          <option value="">Select LandslideCategory</option>
           <option value="PLASTIC">Plastic</option>
           <option value="METAL">Metal</option>
           <option value="PAPER">Paper</option>

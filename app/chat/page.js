@@ -108,7 +108,7 @@ const page = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      setResponse(res.data.description);
+      setResponse(res.data.description );
     } catch (error) {
       console.error("Error uploading the image:", error);
       setResponse("Error processing the image.");
@@ -185,7 +185,7 @@ const page = () => {
           </button>
   
           <div className="flex space-x-2">
-            <button
+            {/* <button
               onClick={handleSubmitReuse}
               className={`w-full bg-green-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300 hover:bg-green-700 ${
                 loading ? 'opacity-50 cursor-not-allowed' : ''
@@ -193,9 +193,9 @@ const page = () => {
               disabled={loading}
             >
               {loading ? 'Processing...' : 'Reuse'}
-            </button>
+            </button> */}
   
-            <button
+            {/* <button
               onClick={handleSubmitRecycle}
               className={`w-full bg-red-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 hover:bg-red-700 ${
                 loading ? 'opacity-50 cursor-not-allowed' : ''
@@ -203,7 +203,7 @@ const page = () => {
               disabled={loading}
             >
               {loading ? 'Processing...' : 'Recycle'}
-            </button>
+            </button> */}
           </div>
         </div>
       </form>
@@ -221,7 +221,8 @@ const page = () => {
           <div
             className="prose prose-lg text-gray-700 overflow-y-auto max-h-[50vh]"
             dangerouslySetInnerHTML={{ __html: formatResponseToHTML(response) }}
-          />
+            />
+
         </div>
       )}
     </div>

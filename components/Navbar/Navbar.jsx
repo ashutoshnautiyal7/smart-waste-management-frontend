@@ -53,7 +53,7 @@ const Navbar = () => {
               aria-label="Home"
               className="text-[#71c55d] text-xl font-bold"
             >
-              SWM
+              Landslide Detection
             </Link>
           </div>
           <div>
