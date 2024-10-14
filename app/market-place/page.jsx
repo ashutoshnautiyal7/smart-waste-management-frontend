@@ -9,6 +9,8 @@ import Link from "next/link";
 import { ThreeCircles } from "react-loader-spinner";
 import GetCookie from "@/components/GetCookie/GettCookie";
 
+// just a comment
+
 const MarketPlace = () => {
   //   const { data: session, status } = useSession();
   const router = useRouter();
